@@ -75,6 +75,7 @@ Argument	Description	Default
 --batch_size	Batch size	32
 --epochs	Training epochs	2000
 --gpu	GPU index	0
+
 🚀 4. Training the Model
 Step 1: Start Visdom Server
 
@@ -102,6 +103,7 @@ python train.py \
 --dataset_path /absolute/path/to/your/dataset \
 --class_choice all \
 --gpu 0
+
 📊 5. Outputs
 Model Checkpoints
 
