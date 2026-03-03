@@ -2,13 +2,26 @@ A Multi-Strategy Fusion-Based Approach for Pipeline Defect Segmentation and Quan
 
 This repository contains the official PyTorch implementation of the paper:
 
-"A Multi-Strategy Fusion-Based Approach for Pipeline Defect Segmentation and Quantification"
+“A Multi-Strategy Fusion-Based Approach for Pipeline Defect Segmentation and Quantification”
 
-The project provides a lightweight and pure PyTorch framework for 3D pipeline defect learning, designed for easy integration with custom datasets.
+The project provides a lightweight, pure PyTorch framework for 3D pipeline defect learning and quantitative analysis.
+
+📌 Overview
+
+This framework is designed for:
+
+3D pipeline defect point cloud learning
+
+Structural defect generation
+
+Quantitative defect analysis
+
+Easy integration with custom datasets
+
+The implementation is minimal, flexible, and easy to extend.
 
 🔧 1. Environment Preparation
-
-Please ensure your system satisfies the following requirements:
+Requirements
 
 Python 3.x
 
@@ -16,7 +29,7 @@ PyTorch ≥ 1.4 (CUDA recommended)
 
 NumPy
 
-Visdom (for real-time visualization)
+Visdom
 
 Install Dependencies
 pip install torch torchvision numpy visdom
@@ -25,7 +38,7 @@ A CUDA-enabled GPU is highly recommended for training.
 
 📂 2. Custom Dataset Preparation
 
-The project uses a custom data loader (data_benchmark.py) that directly supports .npy and .txt point cloud files.
+The project uses a custom data loader (data_benchmark.py) that directly supports .npy and .txt files.
 
 Required Directory Structure
 /your_custom_dataset_path/
@@ -38,29 +51,29 @@ Required Directory Structure
 │   ├── defect_001.npy
 Data Requirements
 
-Each file must contain 3D point cloud coordinates: (X, Y, Z)
+Each file must contain 3D coordinates: (X, Y, Z)
 
-The loader will:
+During training, the loader will:
 
-Automatically sample to 2048 points
+Randomly sample to 2048 points
 
-Normalize data during training
+Normalize point clouds automatically
 
 ⚙️ 3. Configuration Settings
 
-All hyperparameters and path configurations are managed in:
+All hyperparameters are defined in:
 
 arguments.py
 
-You may edit the file directly or override parameters via the command line.
+You can either modify the file directly or pass parameters via the command line.
 
 Important Arguments
 Argument	Description	Default
---dataset_path	Absolute path to dataset (Required)	None
+--dataset_path	Absolute dataset root path (Required)	None
 --class_choice	Specific defect folder or all	all
 --point_num	Number of sampled points	2048
---batch_size	Training batch size	32
---epochs	Total training epochs	2000
+--batch_size	Batch size	32
+--epochs	Training epochs	2000
 --gpu	GPU index	0
 🚀 4. Training the Model
 Step 1: Start Visdom Server
@@ -73,7 +86,7 @@ Then open your browser:
 
 http://localhost:8097
 
-This dashboard shows:
+You will see:
 
 Generator loss
 
@@ -83,22 +96,20 @@ Discriminator loss
 
 Step 2: Launch Training
 
-In your main terminal:
+Run the following command:
 
 python train.py \
 --dataset_path /absolute/path/to/your/dataset \
 --class_choice all \
 --gpu 0
-📊 5. Outputs and Checkpoints
+📊 5. Outputs
 Model Checkpoints
 
-Saved every 50 epochs
-
-Location:
+Saved every 50 epochs in:
 
 model/ckpt/
 
-Files:
+Includes:
 
 generator_xxx.pt
 
@@ -106,26 +117,26 @@ discriminator_xxx.pt
 
 Generated Results
 
-Generated every 100 epochs
+Every 100 epochs:
 
-5000 synthetic defect point clouds per batch
+5000 generated defect point clouds
 
-Saved to:
+Saved in:
 
 model/generated/
 
-These files can be used for:
+These can be used for:
 
 Offline quantitative evaluation
 
-Structural analysis
+Structural morphology analysis
 
-Statistical defect distribution modeling
+Statistical modeling
 
 🧠 Notes
 
-Designed for structural pipeline defect learning.
+Designed for structural pipeline defect modeling.
 
 Easily adaptable to other 3D point cloud datasets.
 
-Lightweight implementation without heavy framework dependencies.
+Lightweight implementation without heavy external frameworks.
