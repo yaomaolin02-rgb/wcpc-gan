@@ -1,148 +1,145 @@
 A Multi-Strategy Fusion-Based Approach for Pipeline Defect Segmentation and Quantification
 
-This repository contains the official PyTorch implementation of the paper:
+Official PyTorch implementation of the paper:
 
 “A Multi-Strategy Fusion-Based Approach for Pipeline Defect Segmentation and Quantification”
 
-The project provides a lightweight, pure PyTorch framework for 3D pipeline defect learning and quantitative analysis.
+📌 1. Overview
 
-📌 Overview
+This repository provides the full implementation used in the paper, including:
 
-This framework is designed for:
+Network architecture
 
-3D pipeline defect point cloud learning
+Training and testing scripts
 
-Structural defect generation
+Dataset preprocessing
 
-Quantitative defect analysis
+Quantitative evaluation metrics
 
-Easy integration with custom datasets
+Generated defect point cloud analysis
 
-The implementation is minimal, flexible, and easy to extend.
+This implementation allows full reproduction of the experimental results reported in the manuscript.
 
-🔧 1. Environment Preparation
-Requirements
+📄 2. Reproducibility Statement
 
-Python 3.x
+All experimental results in the paper can be reproduced using:
 
-PyTorch ≥ 1.4 (CUDA recommended)
+The source code in this repository
+
+The dataset archived at:
+https://doi.org/10.5281/zenodo.18859975
+
+Random seed used in experiments:
+
+seed = 2024
+
+Training/test split:
+
+80% training
+
+20% testing
+
+Number of sampled points:
+
+2048 per point cloud
+
+All reported metrics are averaged over 5 independent runs.
+
+🔧 3. Environment Requirements
+
+Python 3.8
+
+PyTorch ≥ 1.4
 
 NumPy
 
 Visdom
 
-Install Dependencies
+CUDA (recommended)
+
+Install dependencies:
+
 pip install torch torchvision numpy visdom
 
-A CUDA-enabled GPU is highly recommended for training.
+📂 4. Dataset Structure
 
-📂 2. Custom Dataset Preparation
+After downloading the dataset from Zenodo, organize as:
 
-The project uses a custom data loader (data_benchmark.py) that directly supports .npy and .txt files.
-
-Required Directory Structure
-/your_custom_dataset_path/
+dataset/
 │
 ├── Defect_Type_A/
-│   ├── defect_001.npy
-│   ├── defect_001.txt
+│   ├── sample_001.npy
+│   ├── sample_002.npy
 │
 ├── Defect_Type_B/
-│   ├── defect_001.npy
 
-Data Requirements
+Each file contains:
 
-Each file must contain 3D coordinates: (X, Y, Z)
+[X, Y, Z]
 
-During training, the loader will:
+During loading:
 
-Randomly sample to 2048 points
+Random sampling to 2048 points
 
-Normalize point clouds automatically
+Normalization to unit sphere
 
-If you use this dataset, please cite it using its permanent identifier:
-[**10.5281/zenodo.18859975**](https://doi.org/10.5281/zenodo.18859975)
-
-⚙️ 3. Configuration Settings
-
-All hyperparameters are defined in:
-
-arguments.py
-
-You can either modify the file directly or pass parameters via the command line.
-
-Important Arguments
-Argument	Description	Default
---dataset_path	Absolute dataset root path (Required)	None
---class_choice	Specific defect folder or all	all
---point_num	Number of sampled points	2048
---batch_size	Batch size	32
---epochs	Training epochs	2000
---gpu	GPU index	0
-
-🚀 4. Training the Model
-Step 1: Start Visdom Server
-
-Open a new terminal:
+⚙️ 5. Training
+Step 1: Start Visdom
 
 python -m visdom.server -port 8097
 
-Then open your browser:
-
-http://localhost:8097
-
-You will see:
-
-Generator loss
-
-Discriminator loss
-
-3D point cloud visualization
-
-Step 2: Launch Training
-
-Run the following command:
+Step 2: Run Training
 
 python train.py \
---dataset_path /absolute/path/to/your/dataset \
+--dataset_path /path/to/dataset \
 --class_choice all \
+--batch_size 32 \
+--epochs 2000 \
 --gpu 0
 
-📊 5. Outputs
-Model Checkpoints
+🧪 6. Testing / Evaluation
 
-Saved every 50 epochs in:
+To reproduce quantitative results:
+
+python test.py \
+--dataset_path /path/to/dataset \
+--model_path model/ckpt/generator_2000.pt
+
+Evaluation metrics implemented:
+
+Chamfer Distance (CD)
+
+Earth Mover’s Distance (EMD)
+
+Structural similarity metrics
+
+Results will be saved to:
+
+results/
+
+📊 7. Output Files
+
+Model checkpoints:
 
 model/ckpt/
 
-Includes:
-
-generator_xxx.pt
-
-discriminator_xxx.pt
-
-Generated Results
-
-Every 100 epochs:
-
-5000 generated defect point clouds
-
-Saved in:
+Generated samples:
 
 model/generated/
 
-These can be used for:
+Quantitative evaluation:
 
-Offline quantitative evaluation
+results/metrics.csv
 
-Structural morphology analysis
+📎 8. Citation
 
-Statistical modeling
+If you use this code or dataset, please cite:
 
-🧠 Notes
+@article{yourpaper2026,
+  title={A Multi-Strategy Fusion-Based Approach for Pipeline Defect Segmentation and Quantification},
+  journal={Discover Applied Sciences},
+  year={2026}
+}
 
-Designed for structural pipeline defect modeling.
-
-Easily adaptable to other 3D point cloud datasets.
-
-Lightweight implementation without heavy external frameworks.
+Dataset DOI:
+10.5281/zenodo.18859975
