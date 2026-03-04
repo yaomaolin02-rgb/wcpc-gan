@@ -45,10 +45,11 @@ Required Directory Structure
 │
 ├── Defect_Type_A/
 │   ├── defect_001.npy
-│   ├── defect_002.txt
+│   ├── defect_001.txt
 │
 ├── Defect_Type_B/
 │   ├── defect_001.npy
+
 Data Requirements
 
 Each file must contain 3D coordinates: (X, Y, Z)
@@ -58,6 +59,9 @@ During training, the loader will:
 Randomly sample to 2048 points
 
 Normalize point clouds automatically
+
+If you use this dataset, please cite it using its permanent identifier:
+[**10.5281/zenodo.18859975**](https://doi.org/10.5281/zenodo.18859975)
 
 ⚙️ 3. Configuration Settings
 
